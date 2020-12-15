@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { device } from '@utilities';
 
 const Input = styled.input`
   border-radius: 0.4rem;
@@ -22,7 +23,9 @@ const Input = styled.input`
     $search &&
     css`
       border-radius: 0.8rem;
-      max-width: 31.5rem;
+      @media ${device.md} {
+        max-width: 31.5rem;
+      }
       &::placeholder {
         color: #adadad;
       }

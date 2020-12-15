@@ -20,7 +20,7 @@ const StyledWrapper = styled.div`
     padding-right: 2rem;
   }
 
-  @media ${device.sm} {
+  @media ${device.xs} {
     padding: 3rem 3.5rem 4.5rem;
   }
 `;
