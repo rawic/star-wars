@@ -6,9 +6,8 @@ export function auth(ctx) {
   if (!token) {
     ctx.res.writeHead(302, { Location: '/' });
     ctx.res.end();
+    return;
   }
 
-  return {
-    props: {},
-  };
+  return token;
 }

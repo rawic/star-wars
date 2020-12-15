@@ -29,7 +29,9 @@ const Person = ({ person }) => {
 };
 
 export async function getServerSideProps(ctx) {
-  auth(ctx);
+  const token = auth(ctx);
+
+  if (!token) return { props: {} };
 
   const person = await axios.get(
     `https://swapi.dev/api/people/${ctx.query.id}`

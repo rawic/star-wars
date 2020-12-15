@@ -15,7 +15,9 @@ const Favorites = () => {
 };
 
 export async function getServerSideProps(ctx) {
-  return auth(ctx);
+  auth(ctx);
+
+  return { props: {} };
 }
 
 export default Favorites;

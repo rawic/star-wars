@@ -5,6 +5,7 @@ import Link from 'next/link';
 import * as S from './styles';
 
 const convertBreadcrumb = (string) => {
+  if (!string) return;
   return string.replace(/-/g, ' ');
 };
 
