@@ -1,4 +1,4 @@
-import { personConstants } from '../../constants';
+import { personConstants } from '@redux/constants';
 
 export const person = (state = [], action) => {
   switch (action.type) {

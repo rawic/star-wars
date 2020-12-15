@@ -1,4 +1,4 @@
-import { generateRandomToken } from '../utilities';
+import { generateRandomToken } from 'utilities';
 
 export const userService = {
   login,

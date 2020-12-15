@@ -1,7 +1,7 @@
-import { userConstants } from '../../constants';
-import { userService } from '../../services';
+import { userConstants } from '@redux/constants';
+import { userService } from '@services';
 import Router from 'next/router';
-import { store } from '../store';
+import { store } from '@redux/store';
 
 export const userActions = {
   login,

@@ -1,4 +1,4 @@
-import { filtersConstants } from '../../constants';
+import { filtersConstants } from '@redux/constants';
 
 const initialState = {
   text: '',

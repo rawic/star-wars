@@ -1,5 +1,5 @@
-import { store } from '../store';
-import { filtersConstants } from '../../constants';
+import { store } from '@redux/store';
+import { filtersConstants } from '@redux/constants';
 
 export const filtersActions = {
   text,

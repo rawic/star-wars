@@ -1,6 +1,6 @@
 import { applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { loadState, saveState } from '../localStorage';
+import { loadState, saveState } from '@services';
 
 import rootReducer from './reducers';
 const persistedState = loadState();

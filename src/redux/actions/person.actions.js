@@ -1,5 +1,5 @@
-import { store } from '../store';
-import { personConstants } from '../../constants';
+import { store } from '@redux/store';
+import { personConstants } from '@redux/constants';
 
 export const personActions = {
   update,

@@ -1,5 +1,5 @@
-import { store } from '../store';
-import { favoritesConstants } from '../../constants';
+import { store } from '@redux/store';
+import { favoritesConstants } from '@redux/constants';
 
 export const favoritesActions = {
   add,

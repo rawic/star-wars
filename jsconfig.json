@@ -5,7 +5,8 @@
       "@components": ["components/"],
       "@layout/*": ["layout/*"],
       "@assets/*": ["assets/*"],
-      "@redux/*": ["redux/*"]
+      "@redux/*": ["redux/*"],
+      "@services": ["services/"]
     }
   }
 }

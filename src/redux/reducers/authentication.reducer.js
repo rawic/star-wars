@@ -1,4 +1,4 @@
-import { userConstants } from '../../constants/user.constants';
+import { userConstants } from '@redux/constants';
 
 export const authentication = (state = {}, action) => {
   switch (action.type) {

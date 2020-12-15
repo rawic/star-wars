@@ -1,4 +1,4 @@
-import { favoritesConstants } from '../../constants';
+import { favoritesConstants } from '@redux/constants';
 
 export const favorites = (state = [], action) => {
   switch (action.type) {
