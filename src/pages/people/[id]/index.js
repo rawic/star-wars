@@ -129,7 +129,6 @@ async function fetchPeople2() {
   return data;
 }
 
-//TEST
 export async function getStaticPaths() {
   // Call an external API endpoint to get posts
   const { results } = await fetchPeople2();
