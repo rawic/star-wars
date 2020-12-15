@@ -70,10 +70,10 @@ const Person = () => {
 
   return (
     <Layout>
-      <S.Wrapper>
-        <S.PersonName>{name}</S.PersonName>
+      <Wrapper>
+        <PersonName>{name}</PersonName>
 
-        <S.PersonDetails>
+        <PersonDetails>
           <li>
             <Text $dim>Height:</Text> {height}
           </li>
@@ -95,26 +95,26 @@ const Person = () => {
           <li>
             <Text $dim>Gender:</Text> {gender}
           </li>
-        </S.PersonDetails>
+        </PersonDetails>
 
         {isFavorite ? (
-          <S.FavoriteButtonWrapper>
+          <FavoriteButtonWrapper>
             <FavoriteButton
               onClick={() => favoritesActions.remove(person)}
               $active
             />
-          </S.FavoriteButtonWrapper>
+          </FavoriteButtonWrapper>
         ) : (
-          <S.FavoriteButtonWrapper>
+          <FavoriteButtonWrapper>
             <FavoriteButton onClick={() => favoritesActions.add(person)} />
-          </S.FavoriteButtonWrapper>
+          </FavoriteButtonWrapper>
         )}
-      </S.Wrapper>
+      </Wrapper>
 
       <Link href="/people" passHref>
-        <S.GoBackButton as="a" $highlight $submit>
+        <GoBackButton as="a" $highlight $submit>
           GO BACK
-        </S.GoBackButton>
+        </GoBackButton>
       </Link>
     </Layout>
   );
