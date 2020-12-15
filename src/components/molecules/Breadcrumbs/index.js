@@ -21,7 +21,7 @@ const Breadcrumbs = () => {
 
       const pathArray = linkPath.map((path, i) => {
         return {
-          // Stupid hack goes here
+          // Ugly hack goes here
           breadcrumb: i === 0 ? path : personName,
           href: '/' + linkPath.slice(0, i + 1).join('/'),
         };
@@ -39,14 +39,14 @@ const Breadcrumbs = () => {
     <S.Breadcrumbs className="breadcrumb" aria-label="breadcrumbs">
       {breadcrumbs.map(({ href, breadcrumb }, index) => {
         return (
-          <>
-            <li key={href}>
+          <React.Fragment key={href}>
+            <li>
               <Link href={href} passHref>
                 <S.Link>{convertBreadcrumb(breadcrumb)}</S.Link>
               </Link>
             </li>
             {index < breadcrumbs.length - 1 ? '\u00a0/\u00a0' : ''}
-          </>
+          </React.Fragment>
         );
       })}
     </S.Breadcrumbs>

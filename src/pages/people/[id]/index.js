@@ -1,12 +1,10 @@
 import { useRouter } from 'next/router';
-import { personActions } from '@redux/actions';
 import axios from 'axios';
 import Link from 'next/link';
 import Layout from '@layout/Default';
+import { auth } from 'services';
 
 const Person = ({ person }) => {
-  personActions.update(person);
-
   const router = useRouter();
   const { id } = router.query;
 
@@ -30,10 +28,13 @@ const Person = ({ person }) => {
   );
 };
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(ctx) {
+  auth(ctx);
+
   const person = await axios.get(
-    `https://swapi.dev/api/people/${context.query.id}`
+    `https://swapi.dev/api/people/${ctx.query.id}`
   );
+
   return {
     props: {
       person: person.data,

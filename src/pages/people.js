@@ -3,11 +3,10 @@ import { useSelector } from 'react-redux';
 import { filtersActions, peopleActions } from 'redux/actions';
 import Layout from '@layout/Default';
 import { PersonList, Input, Button, AlignContent } from '@components';
-import withPrivateRoute from 'hoc/withPrivateRoute';
-import { Cookie, withCookie } from 'next-cookie';
+
 import { useInfiniteQuery } from 'react-query';
 //import { dehydrate } from 'react-query/hydration';
-import { fetchPeople } from 'services';
+import { fetchPeople, auth } from 'services';
 
 const handleFilterChange = (e) => {
   filtersActions.text(e.target.value);
@@ -75,17 +74,8 @@ const Dashboard = () => {
   );
 };
 
-// export async function getInitialProps() {
-//   const queryCache = new QueryCache();
-//   console.log('aa');
+export async function getServerSideProps(ctx) {
+  return auth(ctx);
+}
 
-//   await queryCache.prefetchQuery('people', fetchPeople);
-
-//   return {
-//     props: {
-//       dehydratedState: dehydrate(queryCache),
-//     },
-//   };
-// }
-
-export default withCookie(withPrivateRoute(Dashboard));
+export default Dashboard;
