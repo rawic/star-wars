@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { FavoriteButton as _FavoriteButton } from '@components';
+import { Button } from '@components';
 
 export const Wrapper = styled.article`
   background-color: #272635;
@@ -20,8 +20,16 @@ export const PersonName = styled.h1`
   margin-bottom: 1rem;
 `;
 
-export const FavoriteButton = styled(_FavoriteButton)`
+export const FavoriteButtonWrapper = styled.div`
   position: absolute;
   right: 2.5rem;
-  top: 2rem;
+  top: 1.5rem;
+`;
+
+export const GoBackButton = styled(Button)`
+  font-size: ${({ theme }) => theme.fontSize.sm};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
+  height: 3.8rem;
+  margin-top: 3rem;
+  width: 11.5rem;
 `;

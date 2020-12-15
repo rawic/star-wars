@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Label, Button } from '@components';
+import { Input, Label, Button, Text } from '@components';
 
 const Form = ({
   values,
@@ -23,9 +23,7 @@ const Form = ({
       $fullwidth
     />
 
-    {errors.email && touched.email && (
-      <div className="input-feedback">{errors.email}</div>
-    )}
+    {errors.email && touched.email && <Text $error>{errors.email}</Text>}
 
     <Label htmlFor="email">Password</Label>
     <Input
@@ -40,10 +38,10 @@ const Form = ({
     />
 
     {errors.password && touched.password && (
-      <div className="input-feedback">{errors.password}</div>
+      <Text $error>{errors.password}</Text>
     )}
 
-    <Button type="submit" disabled={isSubmitting} $fullwidth $highlight $submit>
+    <Button type="submit" disabled={isSubmitting} $login $highlight $submit>
       Login
     </Button>
   </form>

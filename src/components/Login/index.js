@@ -10,7 +10,7 @@ const Login = () => {
   return (
     <Wrapper>
       <Formik
-        initialValues={{ email: 'admin@admin.com', password: 'password' }}
+        initialValues={{ email: '', password: '' }}
         onSubmit={async (values, { setSubmitting, setErrors }) => {
           const error = await userActions.login(values.email, values.password);
 

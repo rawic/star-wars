@@ -4,7 +4,6 @@ const Input = styled.input`
   border-radius: 0.4rem;
   border: 1px solid #eee;
   padding: 0.7rem 1.5rem;
-  margin-bottom: 1.5rem;
   transition: box-shadow,
     ${({ theme }) => theme.transition.duration.default} linear;
 

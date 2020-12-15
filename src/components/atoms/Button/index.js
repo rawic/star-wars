@@ -44,10 +44,11 @@ const Button = styled.button`
       font-size: ${({ theme }) => theme.fontSize.s};
     `}
 
-  ${({ $fullwidth }) =>
-    $fullwidth &&
+  ${({ $login }) =>
+    $login &&
     css`
       width: 100%;
+      margin-top: 1.5rem;
     `}
 `;
 

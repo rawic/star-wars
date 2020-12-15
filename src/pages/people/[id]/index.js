@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import axios from 'axios';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import Layout from '@layout/Default';
-import { Text } from '@components';
+import { Text, FavoriteButton } from '@components';
 import * as S from './styles';
 import { QueryClient, useQuery } from 'react-query';
 import { dehydrate } from 'react-query/hydration';
@@ -66,14 +65,24 @@ const Person = () => {
         </S.PersonDetails>
 
         {isFavorite ? (
-          <S.FavoriteButton
-            onClick={() => favoritesActions.remove(person)}
-            $active
-          />
+          <S.FavoriteButtonWrapper>
+            <FavoriteButton
+              onClick={() => favoritesActions.remove(person)}
+              $active
+            />
+          </S.FavoriteButtonWrapper>
         ) : (
-          <S.FavoriteButton onClick={() => favoritesActions.add(person)} />
+          <S.FavoriteButtonWrapper>
+            <FavoriteButton onClick={() => favoritesActions.add(person)} />
+          </S.FavoriteButtonWrapper>
         )}
       </S.Wrapper>
+
+      <Link href="/people" passHref>
+        <S.GoBackButton as="a" $highlight $submit>
+          GO BACK
+        </S.GoBackButton>
+      </Link>
     </Layout>
   );
 };
