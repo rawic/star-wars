@@ -6,7 +6,9 @@
       "@layout/*": ["layout/*"],
       "@assets/*": ["assets/*"],
       "@redux/*": ["redux/*"],
-      "@services": ["services/"]
+      "@services": ["services/"],
+      "@theme/*": ["theme/*"],
+      "@utilities": ["utilities/"]
     }
   }
 }

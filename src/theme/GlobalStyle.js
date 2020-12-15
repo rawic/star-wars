@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 import { theme } from './mainTheme';
+import { device } from '@utilities';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -26,9 +27,14 @@ const GlobalStyle = createGlobalStyle`
     scroll-behavior: smooth;
     text-rendering: optimizeSpeed;
     position: relative;
-    padding-top: 20rem;
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
+    padding-top: 10rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    @media ${device.xs} {
+      padding-top: 20rem;
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+    }
   }
 
   a {
