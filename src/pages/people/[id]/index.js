@@ -123,23 +123,13 @@ const Person = ({ personState }) => {
   );
 };
 
-async function fetchPeople2() {
-  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}`);
-
-  return data;
-}
-
 export async function getStaticPaths() {
-  // Call an external API endpoint to get posts
-  const { results } = await fetchPeople2();
+  const { results } = await fetchPeople();
 
-  // Get the paths we want to pre-render based on posts
   const paths = results.map((person) => ({
     params: { id: person.url.split('people/')[1].replace(/\/$/, '') },
   }));
 
-  // We'll pre-render only these paths at build time.
-  // { fallback: false } means other routes should 404.
   return { paths, fallback: false };
 }
 
