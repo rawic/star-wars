@@ -7,10 +7,8 @@ import { store } from '../redux/store';
 
 const MainTemplate = ({ children }) => (
   <React.Fragment>
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      {children}
-    </ThemeProvider>
+    <GlobalStyle />
+    <ThemeProvider theme={theme}>{children}</ThemeProvider>
   </React.Fragment>
 );
 

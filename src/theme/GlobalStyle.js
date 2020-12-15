@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
+import { theme } from './mainTheme';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -44,10 +45,10 @@ const GlobalStyle = createGlobalStyle`
     border: 0;
     color: #fff;
     cursor: pointer;
-    font-weight: ${({ theme }) => theme.fontWeight.semibold};
+    font-weight: ${theme.fontWeight.semibold};
 
     &:not([class]):hover {
-      color: ${({ theme }) => theme.highlight}
+      color: ${theme.highlight};
     }
   }
 
