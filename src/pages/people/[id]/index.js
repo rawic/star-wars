@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import Layout from '@layout/Default';
 import { Text, FavoriteButton, Button } from '@components';
-import * as S from './styles';
 import { QueryClient, useQuery } from 'react-query';
 import { dehydrate } from 'react-query/hydration';
 import { fetchPerson, auth } from 'services';
