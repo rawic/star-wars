@@ -1,7 +1,13 @@
 import axios from 'axios';
 
+export async function fetchAllPeople(url = process.env.NEXT_PUBLIC_API_URL) {
+  const { data } = await axios.get(url);
+
+  return data;
+}
+
 export async function fetchPeople(params) {
-  const search = params?.queryKey[1]?.search || '';
+  const search = params?.queryKey?.[1]?.search || '';
   const page = params?.pageParam || '1';
 
   const { data } = await axios.get(

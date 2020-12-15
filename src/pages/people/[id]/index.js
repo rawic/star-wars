@@ -7,9 +7,8 @@ import Layout from '@layout/Default';
 import { Text, FavoriteButton, Button } from '@components';
 import { QueryClient, useQuery } from 'react-query';
 import { dehydrate } from 'react-query/hydration';
-import { fetchPerson, fetchPeople, auth } from 'services';
+import { fetchPerson, fetchPeople, fetchAllPeople, auth } from 'services';
 import { personActions, favoritesActions } from '@redux/actions';
-import axios from 'axios';
 
 export const Wrapper = styled.article`
   background-color: #272635;
@@ -46,7 +45,7 @@ export const GoBackButton = styled(Button)`
 
 const Person = ({ personState }) => {
   const router = useRouter();
-  const favorites = useSelector((state) => state.favorites);
+  const favorites = useSelector(({ favorites }) => favorites);
 
   const { id } = router.query;
   const { data: person } = useQuery('person', () => fetchPerson(id), {
@@ -124,9 +123,17 @@ const Person = ({ personState }) => {
 };
 
 export async function getStaticPaths() {
-  const { results } = await fetchPeople();
+  const totalPeople = [];
+  let data = await fetchAllPeople();
 
-  const paths = results.map((person) => ({
+  totalPeople.push(...data.results);
+
+  while (data['next']) {
+    data = await fetchAllPeople(data['next']);
+    totalPeople.push(...data.results);
+  }
+
+  const paths = totalPeople.map((person) => ({
     params: { id: person.url.split('people/')[1].replace(/\/$/, '') },
   }));
 
@@ -138,21 +145,5 @@ export async function getStaticProps(ctx) {
 
   return { props: { personState } };
 }
-
-// export async function getServerSideProps(ctx) {
-//   const token = auth(ctx);
-
-//   if (!token) return { props: {} };
-
-//   const queryClient = new QueryClient();
-
-//   await queryClient.prefetchQuery('person', () => fetchPerson(ctx.query.id));
-
-//   return {
-//     props: {
-//       dehydratedState: dehydrate(queryClient),
-//     },
-//   };
-// }
 
 export default Person;
