@@ -7,8 +7,9 @@ import Layout from '@layout/Default';
 import { Text, FavoriteButton, Button } from '@components';
 import { QueryClient, useQuery } from 'react-query';
 import { dehydrate } from 'react-query/hydration';
-import { fetchPerson, auth } from 'services';
+import { fetchPerson, fetchPeople, auth } from 'services';
 import { personActions, favoritesActions } from '@redux/actions';
+import axios from 'axios';
 
 export const Wrapper = styled.article`
   background-color: #272635;
@@ -43,12 +44,14 @@ export const GoBackButton = styled(Button)`
   width: 11.5rem;
 `;
 
-const Person = () => {
+const Person = ({ personState }) => {
   const router = useRouter();
   const favorites = useSelector((state) => state.favorites);
 
   const { id } = router.query;
-  const { data: person } = useQuery('person', () => fetchPerson(id));
+  const { data: person } = useQuery('person', () => fetchPerson(id), {
+    initialData: personState,
+  });
   const isFavorite = favorites.some(
     (favorite) => favorite.name === person.name
   );
@@ -120,20 +123,46 @@ const Person = () => {
   );
 };
 
-export async function getServerSideProps(ctx) {
-  const token = auth(ctx);
+async function fetchPeople2() {
+  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}`);
 
-  if (!token) return { props: {} };
-
-  const queryClient = new QueryClient();
-
-  await queryClient.prefetchQuery('person', () => fetchPerson(ctx.query.id));
-
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
-  };
+  return data;
 }
+
+export async function getStaticPaths() {
+  // Call an external API endpoint to get posts
+  const { results } = await fetchPeople2();
+
+  // Get the paths we want to pre-render based on posts
+  const paths = results.map((person) => ({
+    params: { id: person.url.split('people/')[1].replace(/\/$/, '') },
+  }));
+
+  // We'll pre-render only these paths at build time.
+  // { fallback: false } means other routes should 404.
+  return { paths, fallback: false };
+}
+
+export async function getStaticProps(ctx) {
+  const personState = await fetchPerson(ctx.params.id);
+
+  return { props: { personState } };
+}
+
+// export async function getServerSideProps(ctx) {
+//   const token = auth(ctx);
+
+//   if (!token) return { props: {} };
+
+//   const queryClient = new QueryClient();
+
+//   await queryClient.prefetchQuery('person', () => fetchPerson(ctx.query.id));
+
+//   return {
+//     props: {
+//       dehydratedState: dehydrate(queryClient),
+//     },
+//   };
+// }
 
 export default Person;

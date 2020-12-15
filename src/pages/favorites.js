@@ -14,10 +14,10 @@ const Favorites = () => {
   );
 };
 
-export async function getServerSideProps(ctx) {
-  auth(ctx);
+// export async function getServerSideProps(ctx) {
+//   auth(ctx);
 
-  return { props: {} };
-}
+//   return { props: {} };
+// }
 
 export default Favorites;

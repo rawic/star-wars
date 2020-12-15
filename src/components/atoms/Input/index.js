@@ -23,7 +23,7 @@ const Input = styled.input`
     $search &&
     css`
       border-radius: 0.8rem;
-      @media ${device.md} {
+      @media ${device.sm} {
         max-width: 31.5rem;
       }
       &::placeholder {
