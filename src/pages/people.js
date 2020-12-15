@@ -5,7 +5,8 @@ import Layout from '@layout/Default';
 import { PersonList, Input, Button, AlignContent } from '@components';
 
 import { useInfiniteQuery } from 'react-query';
-//import { dehydrate } from 'react-query/hydration';
+import { QueryClient, useQuery } from 'react-query';
+import { dehydrate } from 'react-query/hydration';
 import { fetchPeople, auth } from 'services';
 
 const handleFilterChange = (e) => {
@@ -19,15 +20,16 @@ const Dashboard = () => {
   ]);
 
   const {
-    status,
     data,
+    error,
+    fetchNextPage,
+    hasNextPage,
     isFetching,
-    isFetchingMore,
-    fetchMore,
-    canFetchMore,
-  } = useInfiniteQuery(['people', filtersState.text], fetchPeople, {
+    isFetchingNextPage,
+    status,
+  } = useInfiniteQuery([filtersState.text], fetchPeople, {
     refetchOnWindowFocus: false,
-    getFetchMore: (lastGroup) => {
+    getNextPageParam: (lastGroup) => {
       lastGroup.page = lastGroup.next?.split('&page=')[1];
       return lastGroup.page;
     },
@@ -44,30 +46,30 @@ const Dashboard = () => {
         $search
       />
 
-      {status === 'error' && <div>Something went wrong ...</div>}
-
       {status === 'loading' ? (
-        <div>Retrieving Information ...</div>
+        <p>Retrieving Information...</p>
+      ) : status === 'error' ? (
+        <p>Something went wrong...</p>
       ) : (
         <>
-          <PersonList data={data} favorites={favoritesState} />
+          <PersonList data={data.pages} favorites={favoritesState} />
 
           <AlignContent $align="center">
             <Button
-              onClick={() => fetchMore()}
-              disabled={!canFetchMore || isFetchingMore}
+              onClick={() => fetchNextPage()}
+              disabled={!hasNextPage || isFetchingNextPage}
               $highlight
               $submit
             >
-              {isFetchingMore
+              {isFetchingNextPage
                 ? 'Loading more...'
-                : canFetchMore
+                : hasNextPage
                 ? 'Load More'
                 : 'Nothing more to load'}
             </Button>
           </AlignContent>
 
-          <div>{isFetching && !isFetchingMore ? 'Fetching...' : null}</div>
+          <div>{isFetching && !isFetchingNextPage ? 'Fetching...' : null}</div>
         </>
       )}
     </Layout>
@@ -75,9 +77,20 @@ const Dashboard = () => {
 };
 
 export async function getServerSideProps(ctx) {
-  auth(ctx);
+  const token = auth(ctx);
+  if (!token) {
+    return { props: {} };
+  }
 
-  return { props: {} };
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery('people', fetchPeople);
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
 }
 
 export default Dashboard;
