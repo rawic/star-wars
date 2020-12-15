@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { FavoriteButton } from '@components';
 import * as S from './styles';
 
 //TODO:
@@ -12,13 +13,9 @@ const Person = ({ person, isFavorite, addFavorite, removeFavorite }) => {
         <S.Link>{person.name}</S.Link>
       </Link>
       {isFavorite ? (
-        <S.FavoriteButton onClick={() => removeFavorite(person)}>
-          <S.HeartIcon $active />
-        </S.FavoriteButton>
+        <FavoriteButton onClick={() => removeFavorite(person)} $active />
       ) : (
-        <S.FavoriteButton onClick={() => addFavorite(person)}>
-          <S.HeartIcon />
-        </S.FavoriteButton>
+        <FavoriteButton onClick={() => addFavorite(person)} />
       )}
     </S.Person>
   );

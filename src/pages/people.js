@@ -4,8 +4,7 @@ import { filtersActions, peopleActions } from 'redux/actions';
 import Layout from '@layout/Default';
 import { PersonList, Input, Button, AlignContent } from '@components';
 
-import { useInfiniteQuery } from 'react-query';
-import { QueryClient, useQuery } from 'react-query';
+import { QueryClient, useInfiniteQuery } from 'react-query';
 import { dehydrate } from 'react-query/hydration';
 import { fetchPeople, auth } from 'services';
 
@@ -27,12 +26,9 @@ const Dashboard = () => {
     isFetching,
     isFetchingNextPage,
     status,
-  } = useInfiniteQuery([filtersState.text], fetchPeople, {
+  } = useInfiniteQuery(['people', { search: filtersState.text }], fetchPeople, {
     refetchOnWindowFocus: false,
-    getNextPageParam: (lastGroup) => {
-      lastGroup.page = lastGroup.next?.split('&page=')[1];
-      return lastGroup.page;
-    },
+    getNextPageParam: (lastPage, pages) => lastPage.next?.split('&page=')[1],
   });
 
   return (

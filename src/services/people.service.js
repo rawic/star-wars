@@ -1,10 +1,15 @@
 import axios from 'axios';
 
-export async function fetchPeople({ queryKey }, page = 1) {
-  const search = queryKey[0];
-
+export async function fetchPeople({ pageParam = 1, queryKey }) {
   const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}?search=${search}&page=${page}`
+    `${process.env.NEXT_PUBLIC_API_URL}?search=${queryKey[1].search}&page=${pageParam}`
   );
+
+  return data;
+}
+
+export async function fetchPerson(id) {
+  const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}${id}`);
+
   return data;
 }
